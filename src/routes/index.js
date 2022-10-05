@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { createTable, insertPessoa, updatePessoa, selectPessoas, selectPessoa, deletePessoa } from './controler/Pessoa.js'
+import { insertPessoa, updatePessoa, selectPessoas, selectPessoa, deletePessoa } from '../repositories/pessoa-repository.js'
 
 const router = Router();
 
-router.get('/',(req, res)=>{
+router.get('/', (req, res) => {
   res.json({
     "statusCode": 200,
     "msg": "Api Rodando"
