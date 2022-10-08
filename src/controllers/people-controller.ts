@@ -12,9 +12,9 @@ import * as pessoaRepository from '../repositories/people-repository.js';
 //  }
 // }
 
-exports.selectPessoas = async (req, res, next) => {
+export async function selectPessoas(req, res, next) => {
   try {
-    var data = await pessoaRepository.selectPessoas(req.params.slug);
+    const data = await pessoaRepository.selectPessoas(req.params.slug);
     res.status(200).send(data);
   } catch (e) {
     res.status(500).send({

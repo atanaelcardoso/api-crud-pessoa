@@ -6,6 +6,6 @@ const users = [
 
 export default {
   async index(req: Request, res: Response) {
-    return res.json(users);
+    return res.json(users);    
   }
 };
