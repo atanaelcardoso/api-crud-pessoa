@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import { openDb } from '../configDB';
 
 export async function createTable() {
@@ -6,14 +7,14 @@ export async function createTable() {
   });
 };
 
-export async function selectPessoas(req, res) {
+export async function selectPessoas(req: Request, res: Response) {
   openDb().then(db => {
     db.all('SELECT * FROM pessoa')
       .then(pessoas => res.json(pessoas))
   });
 };
 
-export async function selectPessoaID(req, res) {
+export async function selectPessoaID(req: Request, res: Response) {
   let id = req.body.id;
   openDb().then(db => {
     db.get('SELECT * FROM pessoa WHERE id=?', [id])
@@ -21,7 +22,7 @@ export async function selectPessoaID(req, res) {
   });
 };
 
-export async function insertPessoa(req, res) {
+export async function insertPessoa(req: Request, res: Response) {
   let pessoa = req.body;
   openDb().then(db => {
     db.run('INSERT INTO Pessoa (name, idade) VALUES (?,?)', [pessoa.nome, pessoa.idade]);
@@ -31,7 +32,7 @@ export async function insertPessoa(req, res) {
   })
 };
 
-export async function updatePessoa(req, res) {
+export async function updatePessoa(req: Request, res: Response) {
   let pessoa = req.body;
   openDb().then(db => {
     db.run('UPDATE Pessoa SET nome=? idade=? WHERE id=? ', [pessoa.nome, pessoa.idade, pessoa.id]);
@@ -41,7 +42,7 @@ export async function updatePessoa(req, res) {
   })
 };
 
-export async function deletePessoa(req, res) {
+export async function deletePessoa(req: Request, res: Response) {
   let id = req.body.id;
   openDb().then(db => {
     db.get('DELETE FROM pessoa WHERE id=?', [id])

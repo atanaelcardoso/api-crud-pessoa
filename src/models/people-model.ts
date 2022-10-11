@@ -1,8 +1,9 @@
-import { pessoaRepository } from '../repositories/people-repository'
+import { Request, Response, NextFunction } from 'express';
+import * as pessoaRepository from '../repositories/people-repository'
 
-exports.createTable = async (req, res, next) => {
+export  const createTable = (req: Request, res: Response, next: NextFunction) =>{
   try {
-    var data = await pessoaRepository.createTable();
+    const data = pessoaRepository.createTable();
     res.status(200).send(data);
   } catch (e) {
     res.status(500).send({
@@ -10,3 +11,4 @@ exports.createTable = async (req, res, next) => {
     });
   }
 }
+//exports.createTable = async (req, res, next) => {

@@ -1,19 +1,22 @@
+import { Request, Response, NextFunction } from 'express';
+
 import jwt from 'jsonwebtoken';
 
 const global = {
   SALT_KEY: '',
 };
 
-exports.generateToken = async (data) => {
+exports.generateToken = async (data: Number) => {
   return jwt.sign(data, global.SALT_KEY, { expiresIn: '1d' });
 }
 
-exports.decodeToken = async (token) => {
-  var data = await jwt.verify(token, global.SALT_KEY);
+exports.decodeToken = async (token: string) => {
+  var data = jwt.verify(token, global.SALT_KEY);
   return data;
 }
+//await
 
-exports.authorize = function(req, res, next) {
+exports.authorize = function(req: Request, res: Response, next: NextFunction) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (!token) {
@@ -21,7 +24,7 @@ exports.authorize = function(req, res, next) {
       messagem: 'Acesso Restrito'
     });
   } else {
-    jwt.verify(token, global.SALT_KEY, function(error, decoded) {
+    jwt.verify(token, global.SALT_KEY, function (error: string, decoded: string) {
       if (error) {
         res.status(401).json({
           message: 'Token Inválido'
@@ -33,7 +36,7 @@ exports.authorize = function(req, res, next) {
   }
 };
 
-exports.isAdmin = function(req, res, next) {
+exports.isAdmin = function(req: Request, res: Response, next: NextFunction) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (!token) {
@@ -41,7 +44,7 @@ exports.isAdmin = function(req, res, next) {
       messagem: 'Token Inválido'
     });
   } else {
-    jwt.verify(token, global.SALT_KEY, function(error, decoded) {
+    jwt.verify(token, global.SALT_KEY, function(error: string, decoded: string) {
       if (error) {
         res.status(401).json({
           message: 'Token Inválido'

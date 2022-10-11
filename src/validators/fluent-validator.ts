@@ -1,30 +1,32 @@
 let errors = [];
+//export {}
 
 function validationContract() {
   errors = [];
+ 
 }
 
-validationContract.prototype.isReqired = (value, message) => {
+validationContract.prototype.isReqired = (value: string, message: string) => {
   if (!value || value.length <= 0)
     errors.push({ message: message });
 }
 
-validationContract.prototype.hasMinLen = (value, min, message) => {
+validationContract.prototype.hasMinLen = (value: string, min: number, message:string) => {
   if (!value || value.length < min)
     errors.push({ message: message });
 }
 
-validationContract.prototype.hasMaxLen = (value, max, message) => {
+validationContract.prototype.hasMaxLen = (value: string, max: number, message: string) => {
   if (!value || value.length > max)
     errors.push({ message: message });
 }
 
-validationContract.prototype.isFixedxLen = (value, len, message) => {
+validationContract.prototype.isFixedxLen = (value: string, len: number, message: string) => {
   if (!value || value.length != len)
     errors.push({ message: message });
 }
 
-validationContract.prototype.isEmail = (value, message) => {
+validationContract.prototype.isEmail = (value: string, message: string) => {
   var reg = new RegExp(/w><=/);
   if (!reg.test(value))
     errors.push({ message: message });

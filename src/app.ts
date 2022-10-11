@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-import router from './routes/index.js'
+import router from './routes/index'
 app.use(router);
 
 // insonia app que ele usa
