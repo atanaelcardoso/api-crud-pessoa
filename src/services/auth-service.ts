@@ -3,20 +3,19 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 const global = {
-  SALT_KEY: '',
+  SALT_KEY: process.env.SALT_KEY || '',
 };
 
-exports.generateToken = async (data: Number) => {
+export const generateToken = async (data: Number) => {
   return jwt.sign(data, global.SALT_KEY, { expiresIn: '1d' });
 }
 
-exports.decodeToken = async (token: string) => {
+export const decodeToken = async (token: string) => {
   var data = jwt.verify(token, global.SALT_KEY);
   return data;
 }
-//await
 
-exports.authorize = function(req: Request, res: Response, next: NextFunction) {
+export const authorize = (req: Request, res: Response, next: NextFunction) => {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (!token) {
@@ -36,7 +35,7 @@ exports.authorize = function(req: Request, res: Response, next: NextFunction) {
   }
 };
 
-exports.isAdmin = function(req: Request, res: Response, next: NextFunction) {
+export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (!token) {
@@ -44,16 +43,16 @@ exports.isAdmin = function(req: Request, res: Response, next: NextFunction) {
       messagem: 'Token Inválido'
     });
   } else {
-    jwt.verify(token, global.SALT_KEY, function(error: string, decoded: string) {
+    jwt.verify(token, global.SALT_KEY, function (error: string, decoded: any) {
       if (error) {
-        res.status(401).json({
+        return res.status(401).json({
           message: 'Token Inválido'
         });
       } else {
-        if (decod.roles.includes('admin')) {
-          next();
+        if (decoded.roles.includes('admin')) {
+          return next();
         } else {
-          res.status(403).json({
+          return res.status(403).json({
             message: 'Esta funcionalidade é restrita para admistradores'
           });
         }
