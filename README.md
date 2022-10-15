@@ -1,5 +1,16 @@
- # criando-banco-de-dados
+# API de pessoas
 
- api de banco de dados ele tem :
- .sqlite: software de banco de dados.
- dentro de dele tem um estatus de seguranca que sao cors, https ,fs.
+## Ferramentas
+
+- Software de banco de dados com SQLite3;
+- Status de segurança CORS e HTTPS;
+- Validações;
+- Serviço externo de manipulação de token com JWT.
+
+## Serviços
+
+- `/pessoas`, Seleção de pessoas;
+- `/pessoa/:id`, Seleção de pessoa por ID;
+- `/pessoa`, Inserção de pessoa;
+- `/pessoa/:id`, Atualizar dados da pessoa pelo ID;
+- `/pessoa/:id`, Deletar pessoa pelo ID;
