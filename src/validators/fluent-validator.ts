@@ -1,9 +1,7 @@
-let errors = [];
-//export {}
+let errors = [] as object[];
 
-function validationContract() {
+export function validationContract() {
   errors = [];
- 
 }
 
 validationContract.prototype.isReqired = (value: string, message: string) => {
@@ -43,5 +41,3 @@ validationContract.prototype.clear = () => {
 validationContract.prototype.isValid = () => {
   return errors.length == 0;
 }
-
-module.exports = validationContract;
