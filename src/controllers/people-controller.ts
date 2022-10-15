@@ -1,44 +1,31 @@
 import { Request, Response, NextFunction } from 'express';
 
-import * as pessoaRepository from '../repositories/people-repository.js';
-// const pessoaRepository = require('../repositories/people-repository.js')
+import * as pessoaRepository from '../repositories/people-repository';
 
-// exports.get = async (req, res, next) => {
-//   try {
-//    var data = await pessoaRepository.get();
-//    res.status(200).send(data);
-//  } catch (e) {
-//    res.status(500).send({
-//      message: 'Falha ao processar sua requisicao'
-//    });
-//  }
-// }
-
-//export async function selectPessoas(req, res, next) => {
-export const selectPessoas = async (req: Request, res: Response, next: NextFunction) =>{
+export const selectPessoas = async (req: Request, res: Response, _next: NextFunction) =>{
   try {
-    const data = await pessoaRepository.selectPessoas(req.params.slug);
-    return res.status(200).send(data);
+    const data = await pessoaRepository.selectPessoas(req, res);
+    return data;
   } catch (e) {
     return res.status(500).send({
-      message: 'Falha ao processar sua requisicoa'
+      message: 'Falha ao processar sua requisicao'
     });
   }
 }
 
-export const selectPessoaID = async (req: Request, res: Response, next: NextFunction) =>{
+export const selectPessoaID = async (req: Request, res: Response, _next: NextFunction) =>{
   try {
-    const data = await pessoaRepository.selectPessoaID(req.params.id)
-     return res.status(200).send(data);
+    const data = await pessoaRepository.selectPessoaID(req, res);
+    return data;
   } catch (e) {
     res.status(500).send({
-      message: 'Falha ao processar sua requisicoa'
+      message: 'Falha ao processar sua requisicao'
     });
   }
 }
-export const insertPessoa = async (req: Request, res: Response, next: NextFunction) =>{
+export const insertPessoa = async (req: Request, res: Response, _next: NextFunction) =>{
   try {
-    const data = await pessoaRepository.insertPessoa(req.params.tag)
+    const data = await pessoaRepository.insertPessoa(req, res);
     res.status(200).send(data);
   } catch (e) {
     res.status(500).send({
@@ -47,10 +34,10 @@ export const insertPessoa = async (req: Request, res: Response, next: NextFuncti
   }
 }
 
-export const updatePessoa = async (req: Request, res: Response, next: NextFunction) =>
+export const updatePessoa = async (req: Request, res: Response, _next: NextFunction) =>
   {
   try {
-    await pessoaRepository.updatePessoa(req.params.id, req.body);
+    await pessoaRepository.updatePessoa(req, res);
     res.status(200).send({
       message: 'Produto atualizando com sucesso'
     });
@@ -61,9 +48,9 @@ export const updatePessoa = async (req: Request, res: Response, next: NextFuncti
   }
 };
 
-export const deletePessoa = async (req: Request, res: Response, next: NextFunction) =>{
+export const deletePessoa = async (req: Request, res: Response, _next: NextFunction) =>{
   try {
-    await pessoaRepository.deletePessoa(req.body.id);
+    await pessoaRepository.deletePessoa(req, res);
     res.status(200).send({
       message: 'Produto removido com sucesso'
     });
